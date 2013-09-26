@@ -6,9 +6,8 @@ snippet imp
 # Module Docstring
 snippet docs
 	'''
-	File: ${1:`Filename('$1.py', 'foo.py')`}
-	Author: ${2:`g:snips_author`}
-	Description: ${3}
+	${1}
+	=============================
 	'''
 snippet wh
 	while ${1:condition}:
@@ -135,3 +134,13 @@ snippet mqueryall
 	c.close();
 	conn.close()
 	return ${3};
+snippet deft
+	def test_${1:fname}(${2:`indent('.') ? 'self' : ''`}):
+		"""${3:docstring for $1}"""
+		${4:pass}
+snippet mitem
+	'${1}': {
+		'type': '${2:string}'
+	}
+snippet mattr
+	${1}={'atype':${2:str}, 'adef':''}

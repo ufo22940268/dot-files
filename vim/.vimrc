@@ -10,9 +10,6 @@ function! MySys()
     return "unix"
 endfunction
 
-"Sets how many lines of history VIM har to remember
-set history=400
-
 "Enable filetype plugin
 filetype on
 if has("eval") && v:version>=600
@@ -39,22 +36,6 @@ nmap <leader>x :xa!<cr>
 nmap <leader>w :w!<cr>
 
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"" => Colors and Font
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""Enable syntax hl
-"if MySys()=="unix"
-"    if v:version<600
-"        if filereadable(expand("$VIM/syntax/syntax.vim"))
-"            syntax on
-"        endif
-"    else
-"        syntax on
-"    endif
-"else
-"    syntax on
-"endif
-"
 "internationalization
 "I only work in Win2k Chinese version
 if has("multi_byte")
@@ -91,36 +72,6 @@ if has("multi_byte")
     endif
 endif
 
-"if you use vim in tty,
-"'uxterm -cjk' or putty with option 'Treat CJK ambiguous characters as wide' on
-if exists("&ambiwidth")
-    set ambiwidth=double
-endif
-
-"Some nice mapping to switch syntax (useful if one mixes different languages in one file)
-"map <leader>1 :set syntax=cheetah<cr>
-"map <leader>2 :set syntax=xhtml<cr>
-"map <leader>3 :set syntax=python<cr>
-"map <leader>4 :set ft=javascript<cr>
-"map <leader>$ :syntax sync fromstart<cr>
-
-"Highlight current
-if has("gui_running")
-    if exists("&cursorline")
-        set cursorline
-    endif
-endif
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Fileformat
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"Favorite filetype
-set ffs=unix,dos,mac
-
-nmap <leader>fd :se ff=dos<cr>
-nmap <leader>fu :se ff=unix<cr>
-
-
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM userinterface
@@ -141,7 +92,7 @@ set cmdheight=2
 set nu
 
 "Do not redraw, when running macros.. lazyredraw
-set lz
+"set lz
 
 "Change buffer - without saving
 set hid
@@ -242,37 +193,11 @@ func! Cwd()
     return "e " . cwd
 endfunc
 
-func! DeleteTillSlash()
-    let g:cmd = getcmdline()
-    if MySys() == "unix" || MySys() == "mac"
-        let g:cmd_edited = substitute(g:cmd, "(.*[/]).*", "", "")
-    else
-        let g:cmd_edited = substitute(g:cmd, "(.*[\]).*", "", "")
-    endif
-    if g:cmd == g:cmd_edited
-        if MySys() == "unix" || MySys() == "mac"
-            let g:cmd_edited = substitute(g:cmd, "(.*[/]).*/", "", "")
-        else
-            let g:cmd_edited = substitute(g:cmd, "(.*[\]).*[\]", "", "")
-        endif
-    endif
-    return g:cmd_edited
-endfunc
-
-func! CurrentFileDir(cmd)
-    return a:cmd . " " . expand("%:p:h") . "/"
-endfunc
-
-"cno $q <C->eDeleteTillSlash()<cr>
-"cno $c e <C->eCurrentFileDir("e")<cr>
-"cno $tc <C->eCurrentFileDir("tabnew")<cr>
-cno $th tabnew ~/
-cno $td tabnew ~/Desktop/
-
 "Bash like
 cno <C-A> <Home>
 cno <C-E> <End>
-cno <C-K> <C-U>
+cno <C-K> <C-K>
+cno <C-F> <Right>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -398,26 +323,6 @@ let g:miniBufExplSplitBelow=1
 map <c-w><c-t> :WMToggle<cr>
 let g:bufExplorerSortBy = "name"
 
-""""""""""""""""""""""""""""""
-" => LaTeX Suite thing
-""""""""""""""""""""""""""""""
-"set grepprg=grep -r -s -n
-let g:Tex_DefaultTargetFormat="pdf"
-let g:Tex_ViewRule_pdf='xpdf'
-
-if has("autocmd")
-    "Binding
-    au BufRead *.tex map <silent><leader><space> :w!<cr> :silent! call Tex_RunLaTeX()<cr>
-
-    "Auto complete some things ;)
-    au BufRead *.tex ino <buffer> $i indent
-    au BufRead *.tex ino <buffer> $* cdot
-    au BufRead *.tex ino <buffer> $i item
-    au BufRead *.tex ino <buffer> $m [<cr>]<esc>O
-endif
-
-map <F3> :Tlist<cr>
-
 
 """"""""""""""""""""""""""""""
 " => HTML related
@@ -443,6 +348,7 @@ set path+=res/layout,res/layout-finger,res/values,res/drawable,res/drawable-mdpi
 "Set web path
 set path+=js,css,img
 
+let g:snips_author="dasuan"
 "Reloads all snippets.
 function! ReloadSnippets( snippets_dir, ft )
     if strlen( a:ft ) == 0
@@ -475,6 +381,7 @@ map <leader>vxs :sp ~/.vim/snippets/xml.snippets<cr>
 map <leader>al :!adb_connect&&adb logcat<cr>
 map <leader>ac :!adb_connect && pactive $TARGET<cr>
 map <silent><leader>vp :!xdg-open %<cr>
+noremap <leader>cl :ccl<cr>
 
 function! GetAppPackage()
     pyfile ~/.vim/python/PackageExtractor.py
@@ -541,7 +448,6 @@ endfunction
 
 "Ignore backup file of cvs in Ex mode.
 let g:netrw_list_hide='^\.#.*$'
-autocmd BufNewFile *.xml r ~/.vim/template/xml.tpl
 
 map <leader>vv :e ~/.vimrc<cr>
 map <leader>vs :so ~/.vimrc<cr>
@@ -671,15 +577,6 @@ function! DebugInnerClass()
     endif
     
     let pwd = getcwd()
-    "if match(pwd, "CallHistory") != -1
-        "let output =  "{ echo "." stop at \"".debug_path."\\$".innerName.":".line(".")."\"; cat; } | debug_callhistory"
-    "elseif match(pwd, "Contacts") != -1
-        "let output =  "{ echo "." stop at \"".debug_path."\\$".innerName.":".line(".")."\"; cat; } | debug_contacts"
-    "elseif match(pwd, "frameworks") != -1
-        "let output= "error"
-        "call DebugOuterClass()
-        "return
-    "endif
     let lastPart = CreateDebugInfoLastPart()
     let output =  "{ echo "." stop at \"".debug_path."\\$".innerName.":".line(".")."\"; cat; } | ".lastPart
     call ExecuteInConqueTerm(output)
@@ -785,7 +682,7 @@ function! GetInnerClassName()
             let end = GetEndIndex(line, start)
             let part = strpart(line, start, (end - start) + 1)
 
-            if abs(index - objLineNumber) < abs(nearLineNumber - objLineNumber)
+            if (abs(index - objLineNumber) < abs(nearLineNumber - objLineNumber) && index < objLineNumber)
                 let nearLineNumber = index
                 let innerName = part
             endif
@@ -840,7 +737,7 @@ map <leader>wf :call SwitchToProject("FRA")<cr>
 map <leader>wr :call SwitchToProject("RES")<cr>
 map <leader>wp :call SwitchToProject("PROVIDER")<cr>
 
-set t_Co=256
+"set t_Co=256
 
 function! CdToProjectRoot()
     let pwd = getcwd()
@@ -851,7 +748,7 @@ function! CdToProjectRoot()
     endif
 endfunction
 noremap <leader>cd :call CdToProjectRoot()<cr>
-noremap <leader>m :make<cr>
+noremap <leader>m :Make<cr>
 "au BufAdd *.java call CdToProjectRoot()
 
 let g:SuperTabDefaultCompletionType = "<c-x><c-n>"
@@ -871,13 +768,8 @@ Bundle 'gmarik/vundle'
 "
 "" original repos on github
 Bundle 'tpope/vim-fugitive'
-"Bundle 'Lokaltog/vim-easymotion'
-Bundle 'http://github.com/Lokaltog/vim-powerline.git'
-" ...
-"
 
 filetype plugin indent on     " required!
-noremap <F2> :NERDTreeToggle<cr>
 
 function! EchoSelectionLines() range
     let lnum1 = getpos("'<")[1]
@@ -895,8 +787,6 @@ vnoremap <leader>p :call EchoSelectionLines()<cr>
 vnoremap <leader>cp :call CopySelectionLines()<cr>
 
 set expandtab
-"set t_Co=16
-set background=dark
 
 "Correct indention for case block.
 "set cinoptions=l1
@@ -1025,14 +915,24 @@ endf
 set vb t_vb=
 
 Bundle 'http://github.com/Dinduks/vim-java-get-set.git'
-Bundle 'http://github.com/mattn/zencoding-vim.git'
+Bundle 'https://github.com/mattn/emmet-vim.git'
 
 Bundle 'http://github.com/coderifous/textobj-word-column.vim.git'
 Bundle 'http://github.com/vim-scripts/renamer.vim.git'
 Bundle 'http://github.com/danro/rename.vim.git'
-Bundle 'http://github.com/altercation/vim-colors-solarized.git'
+
 Bundle 'https://github.com/majutsushi/tagbar.git'
 Bundle 'https://github.com/nathanaelkane/vim-indent-guides.git'
+Bundle 'https://github.com/mattn/gist-vim.git'
+Bundle 'https://github.com/mattn/webapi-vim.git'
+
+"Vim move
+Bundle 'matze/vim-move'
+let g:move_map_keys = 0
+vmap <C-j> <Plug>MoveBlockDown
+vmap <C-k> <Plug>MoveBlockUp
+nmap <A-j> <Plug>MoveLineDown
+nmap <A-k> <Plug>MoveLineDown
 
 
 "nmap <c-m> <Plug>DWMFocus
@@ -1046,8 +946,9 @@ nnoremap ,vd :!mvn android:deploy<cr>
 nnoremap ,vu :!ant uninstall<cr>
 nnoremap ,vr :make runa<cr>
 nnoremap <leader>vh gg/class<cr>
+nnoremap <leader>vi ?^import<cr>
 nnoremap ,vn :call EditSnippet()<cr>
-nnoremap ,vt :call EditFileType()<cr>
+nnoremap ,vt :exec "e ~/.vim/bundle/vim-template/templates/template.".&filetype<cr>
 nnoremap ,va :e ~/.config/awesome/rc.lua<cr>
 
 function! MakeTest()
@@ -1055,7 +956,7 @@ function! MakeTest()
     call SetInstrumentClass()
 endf
 
-call SetAnt()
+"call SetAnt()
 
 function! Make()
     set makeprg=make
@@ -1080,13 +981,116 @@ set errorformat=\[ERROR]\ %f:[%l\\,%v]\ %m
 let g:indent_guides_guide_size = 1
 let g:indent_guides_start_level = 2
 noremap <leader>vl :cla<cr>
-set background=dark
 
-"Uncomment this on mac.
+
+"Colorscheme
+
+"Solarized
+Bundle 'http://github.com/altercation/vim-colors-solarized.git'
 if MySys() == "mac"
     let g:solarized_termcolors=256
 endif
-"let g:solarized_termcolors=256
-"set t_Co=16
-
+let g:solarized_termcolors=256
+set background=dark
+set t_Co=16
 colorscheme solarized
+"
+"""Tomorrow
+"Bundle 'https://github.com/chriskempson/vim-tomorrow-theme.git'
+"set background=dark
+"set t_Co=16
+"colorscheme tomorrow
+
+"powerline
+Bundle 'https://github.com/itchyny/lightline.vim.git'
+let g:lightline = {
+      \ 'colorscheme': 'solarized',
+      \ 'mode_map': { 'c': 'NORMAL' },
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ] ]
+      \ },
+      \ 'component_function': {
+      \   'modified': 'MyModified',
+      \   'readonly': 'MyReadonly',
+      \   'fugitive': 'MyFugitive',
+      \   'filename': 'MyFilename',
+      \   'fileformat': 'MyFileformat',
+      \   'filetype': 'MyFiletype',
+      \   'fileencoding': 'MyFileencoding',
+      \   'mode': 'MyMode',
+      \ },
+      \ 'separator': { 'left': '⮀', 'right': '⮂' },
+      \ 'subseparator': { 'left': '⮁', 'right': '⮃' }
+      \ }
+
+function! MyModified()
+  return &ft =~ 'help\|vimfiler\|gundo' ? '' : &modified ? '+' : &modifiable ? '' : '-'
+endfunction
+
+function! MyReadonly()
+  return &ft !~? 'help\|vimfiler\|gundo' && &ro ? '⭤' : ''
+endfunction
+
+function! MyFilename()
+  return ('' != MyReadonly() ? MyReadonly() . ' ' : '') .
+        \ (&ft == 'vimfiler' ? vimfiler#get_status_string() : 
+        \  &ft == 'unite' ? unite#get_status_string() : 
+        \  &ft == 'vimshell' ? substitute(b:vimshell.current_dir,expand('~'),'~','') : 
+        \ '' != expand('%t') ? expand('%t') : '[No Name]') .
+        \ ('' != MyModified() ? ' ' . MyModified() : '')
+endfunction
+
+function! MyFugitive()
+  return &ft !~? 'vimfiler\|gundo' && exists('*fugitive#head') && strlen(fugitive#head()) ? '⭠ '.fugitive#head() : ''
+endfunction
+
+function! MyFileformat()
+  return winwidth('.') > 70 ? &fileformat : ''
+endfunction
+
+function! MyFiletype()
+  return winwidth('.') > 70 ? (strlen(&filetype) ? &filetype : 'no ft') : ''
+endfunction
+
+function! MyFileencoding()
+  return winwidth('.') > 70 ? (strlen(&fenc) ? &fenc : &enc) : ''
+endfunction
+
+function! MyMode()
+  return winwidth('.') > 60 ? lightline#mode() : ''
+endfunction
+
+"CtrlP
+Bundle 'https://github.com/kien/ctrlp.vim.git'
+Bundle 'https://github.com/tacahiroy/ctrlp-funky.git'
+let g:ctrlp_extensions = ['funky']
+nnoremap <Leader>fu :CtrlPFunky<Cr>
+" narrow the list down with a word under cursor
+nnoremap <Leader>fU :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
+
+"Multible cursors
+Bundle 'https://github.com/terryma/vim-multiple-cursors.git'
+
+"vim-expand-region
+"Bundle 'https://github.com/terryma/vim-expand-region.git'
+
+"vim-make-selector
+Bundle 'https://github.com/ufo22940268/vim-make-selector.git'
+
+function! ConvertToXml() 
+    '<,'>s#\(\S\+\)="\(\S\+\)"#<item name="\1">\2</item>#g
+endf
+
+"Dispatch, Asynchronize vim maker.
+"Bundle 'https://github.com/tpope/vim-dispatch.git'
+Bundle 'https://github.com/ufo22940268/vim-dispatch'
+
+"Template
+Bundle 'https://github.com/aperezdc/vim-template.git'
+
+"Vimwiki
+Bundle 'https://github.com/vim-scripts/vimwiki.git'
+
+"Sets how many lines of history VIM har to remember
+set history=400
+
