@@ -271,15 +271,6 @@ endif
 set wrap
 
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Spell checking
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-map <leader>sn ]
-map <leader>sp [
-map <leader>sa zg
-map <leader>s? z=
-
-
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Plugin configuration
@@ -371,17 +362,19 @@ function! EditFileType()
     exec "e ~/.vim/ftplugin/".&filetype.".vim"
 endfunction
 
+"My mapping
 nmap <leader>es :call EditSnippet()<CR>
 nmap <leader>et :exec "e ~/.vim/ftplugin/".&filetype.".vim"<CR>
-
 nmap <leader>rr :call ReloadSnippets(snippets_dir, &filetype)<CR>
-map <leader>vjs :sp ~/.vim/snippets/java.snippets<cr>
-map <leader>vxs :sp ~/.vim/snippets/xml.snippets<cr>
-
 map <leader>al :!adb_connect&&adb logcat<cr>
 map <leader>ac :!adb_connect && pactive $TARGET<cr>
 map <silent><leader>vp :!xdg-open %<cr>
 noremap <leader>cl :ccl<cr>
+map <leader>t :Tabularize /=<cr>
+
+map <leader>vz :e ~/.oh-my-zsh/profile.sh<cr>
+map <leader>sz :!source ~/.zshrc<cr>
+noremap <leader>m :make<cr>
 
 function! GetAppPackage()
     pyfile ~/.vim/python/PackageExtractor.py
@@ -524,7 +517,7 @@ cabbr <expr> %$ expand('%:t:r')
 " It's useful to show the buffer number in the status line.
 set laststatus=2 statusline=%02n:%<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P
 
-set shell=bash\ -l
+"set shell=bash\ -l
 " It's useful to show the buffer number in the status line.
 set laststatus=2 statusline=%02n:%<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P
 
@@ -719,7 +712,7 @@ set noswapfile
 set nocst
 
 
-map <silent> <leader>bt :!ctags -R --exclude=\.* <CR>
+map <silent> <leader>bt :!ctags -R<CR>
 
 fun! SwitchToProject(path)
     exec ":lcd $".a:path
@@ -748,7 +741,6 @@ function! CdToProjectRoot()
     endif
 endfunction
 noremap <leader>cd :call CdToProjectRoot()<cr>
-noremap <leader>m :Make<cr>
 "au BufAdd *.java call CdToProjectRoot()
 
 let g:SuperTabDefaultCompletionType = "<c-x><c-n>"
@@ -990,7 +982,6 @@ Bundle 'http://github.com/altercation/vim-colors-solarized.git'
 if MySys() == "mac"
     let g:solarized_termcolors=256
 endif
-let g:solarized_termcolors=256
 set background=dark
 set t_Co=16
 colorscheme solarized
@@ -1003,25 +994,25 @@ colorscheme solarized
 
 "powerline
 Bundle 'https://github.com/itchyny/lightline.vim.git'
-let g:lightline = {
-      \ 'colorscheme': 'solarized',
-      \ 'mode_map': { 'c': 'NORMAL' },
-      \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ] ]
-      \ },
-      \ 'component_function': {
-      \   'modified': 'MyModified',
-      \   'readonly': 'MyReadonly',
-      \   'fugitive': 'MyFugitive',
-      \   'filename': 'MyFilename',
-      \   'fileformat': 'MyFileformat',
-      \   'filetype': 'MyFiletype',
-      \   'fileencoding': 'MyFileencoding',
-      \   'mode': 'MyMode',
-      \ },
-      \ 'separator': { 'left': '⮀', 'right': '⮂' },
-      \ 'subseparator': { 'left': '⮁', 'right': '⮃' }
-      \ }
+"let g:lightline = {
+      "\ 'colorscheme': 'solarized',
+      "\ 'mode_map': { 'c': 'NORMAL' },
+      "\ 'active': {
+      "\   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ] ]
+      "\ },
+      "\ 'component_function': {
+      "\   'modified': 'MyModified',
+      "\   'readonly': 'MyReadonly',
+      "\   'fugitive': 'MyFugitive',
+      "\   'filename': 'MyFilename',
+      "\   'fileformat': 'MyFileformat',
+      "\   'filetype': 'MyFiletype',
+      "\   'fileencoding': 'MyFileencoding',
+      "\   'mode': 'MyMode',
+      "\ },
+      "\ 'separator': { 'left': '⮀', 'right': '⮂' },
+      "\ 'subseparator': { 'left': '⮁', 'right': '⮃' }
+      "\ }
 
 function! MyModified()
   return &ft =~ 'help\|vimfiler\|gundo' ? '' : &modified ? '+' : &modifiable ? '' : '-'
@@ -1083,7 +1074,7 @@ endf
 
 "Dispatch, Asynchronize vim maker.
 "Bundle 'https://github.com/tpope/vim-dispatch.git'
-Bundle 'https://github.com/ufo22940268/vim-dispatch'
+"Bundle 'https://github.com/ufo22940268/vim-dispatch'
 
 "Template
 Bundle 'https://github.com/aperezdc/vim-template.git'
@@ -1094,3 +1085,4 @@ Bundle 'https://github.com/vim-scripts/vimwiki.git'
 "Sets how many lines of history VIM har to remember
 set history=400
 
+unmap <leader>t
