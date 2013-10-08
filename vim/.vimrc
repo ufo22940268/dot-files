@@ -196,7 +196,7 @@ endfunc
 "Bash like
 cno <C-A> <Home>
 cno <C-E> <End>
-cno <C-K> <C-K>
+"cno <C-K> <C-K>
 cno <C-F> <Right>
 
 
@@ -344,6 +344,7 @@ let JavaBrowser_Use_Right_Window = 1
 
 "Set android path
 set path+=res/layout,res/layout-finger,res/values,res/drawable,res/drawable-mdpi,res/drawable-hdpi,res/menu,assets
+set path+=templcates,static,css,js
 
 "Set web path
 set path+=js,css,img
@@ -524,7 +525,6 @@ cabbr <expr> %$ expand('%:t:r')
 " It's useful to show the buffer number in the status line.
 set laststatus=2 statusline=%02n:%<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P
 
-set shell=bash\ -l
 " It's useful to show the buffer number in the status line.
 set laststatus=2 statusline=%02n:%<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P
 
@@ -543,7 +543,7 @@ function! ReadPhoneBook()
     call FormatXml()
 endfunction
 
-set suffixesadd+=.java,.xml,.9.png,.png,.py
+set suffixesadd+=.java,.xml,.9.png,.png,.py,.css
 noremap <leader>tr :!adb shell stop; sleep 2; adb shell start<cr>
 noremap <leader>tc :!adb_connect<cr>
 noremap <leader>ts :!target_sync<cr>
@@ -719,7 +719,7 @@ set noswapfile
 set nocst
 
 
-map <silent> <leader>bt :!ctags -R --exclude=\.* <CR>
+map <silent> <leader>bt :!ctags -R<CR>
 
 fun! SwitchToProject(path)
     exec ":lcd $".a:path
@@ -748,7 +748,8 @@ function! CdToProjectRoot()
     endif
 endfunction
 noremap <leader>cd :call CdToProjectRoot()<cr>
-noremap <leader>m :Make<cr>
+"noremap <leader>m :Make<cr>
+noremap <leader>m :make<cr>
 "au BufAdd *.java call CdToProjectRoot()
 
 let g:SuperTabDefaultCompletionType = "<c-x><c-n>"
@@ -872,11 +873,6 @@ function! ConvertToGsId()
     python sys.argv = [vim.eval(cword)]
     pyfile ~/.vim/python/Converter.py
     return result
-endf
-
-function! GenerateMarkDown()
-    "echo "!markdown % > /var/www/html/hz/temp/".expand("%:t:r").".html"
-    exec "!markdown % > /var/www/html/hz/temp/".expand("%:t:r").".html"
 endf
 
 set keywordprg=man
@@ -1094,3 +1090,19 @@ Bundle 'https://github.com/vim-scripts/vimwiki.git'
 "Sets how many lines of history VIM har to remember
 set history=400
 
+"markdown
+Bundle 'git@github.com:tpope/vim-markdown.git'
+Bundle 'git@github.com:suan/vim-instant-markdown.git'
+function! GenerateMarkDown()
+    exec "!markdown % > /Library/WebServer/Documents/".expand("%:t:r").".html"
+endf
+let g:instant_markdown_slow = 1
+
+"vim-unstack
+"Bundle 'git@github.com:mattboehm/vim-unstack.git'
+
+"ack
+Bundle 'git@github.com:mileszs/ack.vim.git'
+
+"Python doc
+Bundle 'git@github.com:fs111/pydoc.vim.git'
