@@ -1,0 +1,23 @@
+ls
+pwd
+ls
+ls
+cd ..
+ls
+ls
+pwd
+cd ..
+ls
+cd ..
+ls
+cd ~
+ls
+ls
+ls
+ls
+ls
+source bin/aclllls
+ls
+source env2.6/bin/activate.csh
+source env2.6/bin/activate
+make server

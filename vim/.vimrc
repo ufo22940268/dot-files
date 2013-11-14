@@ -36,43 +36,6 @@ nmap <leader>x :xa!<cr>
 nmap <leader>w :w!<cr>
 
 
-"internationalization
-"I only work in Win2k Chinese version
-if has("multi_byte")
-    "set bomb 
-    set fileencodings=ucs-bom,utf-8,cp936,big5,euc-jp,euc-kr,latin1 
-    " CJK environment detection and corresponding setting 
-    if v:lang =~ "^zh_CN" 
-        " Use cp936 to support GBK, euc-cn == gb2312 
-        set encoding=cp936 
-        set termencoding=cp936 
-        set fileencoding=cp936 
-    elseif v:lang =~ "^zh_TW" 
-        " cp950, big5 or euc-tw 
-        " Are they equal to each other? 
-        set encoding=big5 
-        set termencoding=big5 
-        set fileencoding=big5 
-    elseif v:lang =~ "^ko" 
-        " Copied from someone's dotfile, untested 
-        set encoding=euc-kr 
-        set termencoding=euc-kr 
-        set fileencoding=euc-kr 
-    elseif v:lang =~ "^ja_JP" 
-        " Copied from someone's dotfile, untested 
-        set encoding=euc-jp 
-        set termencoding=euc-jp 
-        set fileencoding=euc-jp 
-    endif 
-    " Detect UTF-8 locale, and replace CJK setting if needed 
-    if v:lang =~ "utf8$" || v:lang =~ "UTF-8$" 
-        set encoding=utf-8 
-        set termencoding=utf-8 
-        set fileencoding=utf-8 
-    endif
-endif
-
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM userinterface
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -196,7 +159,7 @@ endfunc
 "Bash like
 cno <C-A> <Home>
 cno <C-E> <End>
-cno <C-K> <C-K>
+"cno <C-K> <C-K>
 cno <C-F> <Right>
 
 
@@ -335,6 +298,7 @@ let JavaBrowser_Use_Right_Window = 1
 
 "Set android path
 set path+=res/layout,res/layout-finger,res/values,res/drawable,res/drawable-mdpi,res/drawable-hdpi,res/menu,assets
+set path+=templcates,static,css,js
 
 "Set web path
 set path+=js,css,img
@@ -492,6 +456,10 @@ function! SetAnt()
     execute 'set errorformat=' . mac_ant_fmt
 endfunction
 
+function! SetMaven()
+    set errorformat=[ERROR]\ %f:[%l\\,%v]\ %m
+endf
+
 function! SetPython()
     set errorformat=
                 \%A\ \ File\ \"%f\"\\\,\ line\ %l\\\,%m,
@@ -514,11 +482,7 @@ map <leader>z <Plug>ZoomWin
 cabbr <expr> %% expand('%:h')
 cabbr <expr> %$ expand('%:t:r')
 
-" It's useful to show the buffer number in the status line.
-set laststatus=2 statusline=%02n:%<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P
-
-"set shell=bash\ -l
-" It's useful to show the buffer number in the status line.
+"" It's useful to show the buffer number in the status line.
 set laststatus=2 statusline=%02n:%<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P
 
 function! FormatXml() 
@@ -536,7 +500,7 @@ function! ReadPhoneBook()
     call FormatXml()
 endfunction
 
-set suffixesadd+=.java,.xml,.9.png,.png,.py
+set suffixesadd+=.java,.xml,.9.png,.png,.py,.css
 noremap <leader>tr :!adb shell stop; sleep 2; adb shell start<cr>
 noremap <leader>tc :!adb_connect<cr>
 noremap <leader>ts :!target_sync<cr>
@@ -635,7 +599,7 @@ endf
 
 function! ExecuteInConqueTerm(cmd)
     split
-    let my_terminal = conque_term#open('/bin/bash -l')
+    let my_terminal = conque_term#open('zsh')
     call my_terminal.write(a:cmd . "\n")
 endf
 
@@ -741,6 +705,8 @@ function! CdToProjectRoot()
     endif
 endfunction
 noremap <leader>cd :call CdToProjectRoot()<cr>
+"noremap <leader>m :Make<cr>
+noremap <leader>m :make<cr>
 "au BufAdd *.java call CdToProjectRoot()
 
 let g:SuperTabDefaultCompletionType = "<c-x><c-n>"
@@ -866,11 +832,6 @@ function! ConvertToGsId()
     return result
 endf
 
-function! GenerateMarkDown()
-    "echo "!markdown % > /var/www/html/hz/temp/".expand("%:t:r").".html"
-    exec "!markdown % > /var/www/html/hz/temp/".expand("%:t:r").".html"
-endf
-
 set keywordprg=man
 "map <leader>va :e ~/.config/awesome/rc.lua<cr>
 
@@ -911,7 +872,7 @@ Bundle 'https://github.com/mattn/emmet-vim.git'
 
 Bundle 'http://github.com/coderifous/textobj-word-column.vim.git'
 Bundle 'http://github.com/vim-scripts/renamer.vim.git'
-Bundle 'http://github.com/danro/rename.vim.git'
+Bundle 'https://github.com/danro/rename.vim.git'
 
 Bundle 'https://github.com/majutsushi/tagbar.git'
 Bundle 'https://github.com/nathanaelkane/vim-indent-guides.git'
@@ -994,25 +955,25 @@ colorscheme solarized
 
 "powerline
 Bundle 'https://github.com/itchyny/lightline.vim.git'
-"let g:lightline = {
-      "\ 'colorscheme': 'solarized',
-      "\ 'mode_map': { 'c': 'NORMAL' },
-      "\ 'active': {
-      "\   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ] ]
-      "\ },
-      "\ 'component_function': {
-      "\   'modified': 'MyModified',
-      "\   'readonly': 'MyReadonly',
-      "\   'fugitive': 'MyFugitive',
-      "\   'filename': 'MyFilename',
-      "\   'fileformat': 'MyFileformat',
-      "\   'filetype': 'MyFiletype',
-      "\   'fileencoding': 'MyFileencoding',
-      "\   'mode': 'MyMode',
-      "\ },
+let g:lightline = {
+      \ 'colorscheme': 'solarized',
+      \ 'mode_map': { 'c': 'NORMAL' },
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ] ]
+      \ },
+      \ 'component_function': {
+      \   'modified': 'MyModified',
+      \   'readonly': 'MyReadonly',
+      \   'fugitive': 'MyFugitive',
+      \   'filename': 'MyFilename',
+      \   'fileformat': 'MyFileformat',
+      \   'filetype': 'MyFiletype',
+      \   'fileencoding': 'MyFileencoding',
+      \   'mode': 'MyMode',
+      \ }
+      \ }
       "\ 'separator': { 'left': '⮀', 'right': '⮂' },
       "\ 'subseparator': { 'left': '⮁', 'right': '⮃' }
-      "\ }
 
 function! MyModified()
   return &ft =~ 'help\|vimfiler\|gundo' ? '' : &modified ? '+' : &modifiable ? '' : '-'
@@ -1085,4 +1046,34 @@ Bundle 'https://github.com/vim-scripts/vimwiki.git'
 "Sets how many lines of history VIM har to remember
 set history=400
 
-unmap <leader>t
+"markdown
+Bundle 'git@github.com:tpope/vim-markdown.git'
+Bundle 'git@github.com:suan/vim-instant-markdown.git'
+function! GenerateMarkDown()
+    exec "!markdown % > /Library/WebServer/Documents/".expand("%:t:r").".html"
+endf
+let g:instant_markdown_slow = 1
+
+"vim-unstack
+"Bundle 'git@github.com:mattboehm/vim-unstack.git'
+
+"ack
+Bundle 'git@github.com:mileszs/ack.vim.git'
+
+"Python doc
+Bundle 'git@github.com:fs111/pydoc.vim.git'
+
+"Python mode
+Bundle 'git@github.com:klen/python-mode.git'
+let g:pymode_lint_ignore='W0401,W0611,W0612'
+let g:pymode_lint_checker='pyflakes'
+let g:pymode_folding = 0
+
+"Syntax checker
+"Bundle 'https://github.com/scrooloose/syntastic'
+"
+"Easy motion
+Bundle 'https://github.com/Lokaltog/vim-easymotion.git'
+
+Bundle 'https://github.com/davidoc/taskpaper.vim.git'
+

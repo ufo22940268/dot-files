@@ -1,0 +1,1 @@
+("~/.emacs.d/" "/tmp/" "~/workspace/jayway-maven-android-plugin-samples-3a0e938/helloflashlight/" "~/workspace/Android-RMS/" "~/workspace/outland/" "~/workspace/jayway-maven-android-plugin-samples-3a0e938/libraryprojects/libraryprojects-mainapp/" "~/program/dot-files/")
