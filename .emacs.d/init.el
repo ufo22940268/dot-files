@@ -121,8 +121,6 @@
 
 (message "init completed in %.2fms"
          (sanityinc/time-subtract-millis (current-time) before-init-time))
-<<<<<<< HEAD
-
 
 (projectile-global-mode)
 (add-hook 'java-mode-hook 'projectile-on)
@@ -145,14 +143,14 @@
   (let ((hippie-expand-try-functions-list '(try-complete-file-name-partially try-complete-file-name)))
     (call-interactively 'hippie-expand)))
 (setq show-trailing-whitespace nil)
+
+(add-hook 'python-mode-hook 'jedi:setup)
+(setq jedi:setup-keys t)                      ; optional
+(setq jedi:complete-on-dot t)                 ; optional
+
 (require 'android)
-=======
-(projectile-global-mode)
-;;;(set-default-font "Ubuntu Mono derivative Powerline 14")
->>>>>>> 177095bdff18c974b63d684a901db4db196e690c
 (provide 'init)
 ;; Local Variables:
 ;; coding: utf-8
 ;; no-byte-compile: t
 ;; End:
-mq
