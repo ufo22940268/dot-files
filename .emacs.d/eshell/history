@@ -21,3 +21,35 @@ ls
 source env2.6/bin/activate.csh
 source env2.6/bin/activate
 make server
+ls
+rm -rf tmp
+cd ~/workspace/
+ls
+mkdir tmp
+cd tmp/
+touch Makefile
+touch a.py
+vim Makefile 
+ls
+make server
+make server
+"city_name": "\u5df4\u5f66\u6dd6\u5c14\u5e02", 
+make server
+make server
+Makefile:11: recipe for target 'server' failed
+make server
+ls
+cp elpa/yasnippet-20131031.628/snippets . -rf
+cp -rf elpa/yasnippet-20131031.628/snippets .
+ls
+cd ~/workspace/outland/
+ls
+git status
+rm TAGS a api/#hotel.py\# 
+git status
+git add .
+git pull
+git add .
+git commit -m "up"
+git push
+make server

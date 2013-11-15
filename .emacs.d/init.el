@@ -122,16 +122,30 @@
 (message "init completed in %.2fms"
          (sanityinc/time-subtract-millis (current-time) before-init-time))
 
-(require 'traverselisp)
-(defun create-tags (dir-name)
-  "Create tags file."
-  (interactive "DDirectory: ")
-  (eshell-command
-   (format "find %s -type f -name \"*\" | etags -" dir-name)))
 
 (projectile-global-mode)
 (add-hook 'java-mode-hook 'projectile-on)
 (set-default-font "Ubuntu Mono derivative Powerline 14")
+
+(setq split-height-threshold nil)
+(setq yas-snippet-dirs
+      '("~/.emacs.d/snippets/"            ;; personal snippets
+        "/path/to/some/collection/"      ;; just some foo-mode snippets
+        "/path/to/some/othercollection/" ;; some more foo-mode and a complete baz-mode
+        "/path/to/yasnippet/snippets"    ;; the default collection
+        ))
+
+(yas-global-mode 1) ;; or M-x yas-reload-all if you've started YASnippet already.(setq split-width-threshold 0)
+
+(global-set-key (kbd "C-M-/") 'my-expand-file-name-at-point)
+(defun my-expand-file-name-at-point ()
+  "Use hippie-expand to expand the filename"
+  (interactive)
+  (let ((hippie-expand-try-functions-list '(try-complete-file-name-partially try-complete-file-name)))
+    (call-interactively 'hippie-expand)))
+(setq show-trailing-whitespace nil)
+(require 'android)
+(provide 'init)
 ;; Local Variables:
 ;; coding: utf-8
 ;; no-byte-compile: t
