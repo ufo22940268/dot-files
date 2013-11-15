@@ -122,6 +122,8 @@
 (message "init completed in %.2fms"
          (sanityinc/time-subtract-millis (current-time) before-init-time))
 (projectile-global-mode)
+
+;;;(global-set-key (kbd "C-x C-,") 'pop-mark)
 ;;;(set-default-font "Ubuntu Mono derivative Powerline 14")
 (provide 'init)
 ;; Local Variables:
