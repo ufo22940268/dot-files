@@ -21,3 +21,9 @@ ls
 source env2.6/bin/activate.csh
 source env2.6/bin/activate
 make server
+ls
+ls
+cd ~/workspace/
+ls
+cd lllls
+ls

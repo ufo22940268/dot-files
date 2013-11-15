@@ -121,18 +121,11 @@
 
 (message "init completed in %.2fms"
          (sanityinc/time-subtract-millis (current-time) before-init-time))
-
-(require 'traverselisp)
-(defun create-tags (dir-name)
-  "Create tags file."
-  (interactive "DDirectory: ")
-  (eshell-command
-   (format "find %s -type f -name \"*\" | etags -" dir-name)))
-
 (projectile-global-mode)
-(add-hook 'java-mode-hook 'projectile-on)
-(set-default-font "Ubuntu Mono derivative Powerline 14")
+;;;(set-default-font "Ubuntu Mono derivative Powerline 14")
+(provide 'init)
 ;; Local Variables:
 ;; coding: utf-8
 ;; no-byte-compile: t
 ;; End:
+mq
