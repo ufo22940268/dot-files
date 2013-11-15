@@ -22,6 +22,7 @@ source env2.6/bin/activate.csh
 source env2.6/bin/activate
 make server
 ls
+<<<<<<< HEAD
 rm -rf tmp
 cd ~/workspace/
 ls
@@ -53,3 +54,10 @@ git add .
 git commit -m "up"
 git push
 make server
+=======
+ls
+cd ~/workspace/
+ls
+cd lllls
+ls
+>>>>>>> 177095bdff18c974b63d684a901db4db196e690c

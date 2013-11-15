@@ -121,6 +121,7 @@
 
 (message "init completed in %.2fms"
          (sanityinc/time-subtract-millis (current-time) before-init-time))
+<<<<<<< HEAD
 
 
 (projectile-global-mode)
@@ -145,8 +146,13 @@
     (call-interactively 'hippie-expand)))
 (setq show-trailing-whitespace nil)
 (require 'android)
+=======
+(projectile-global-mode)
+;;;(set-default-font "Ubuntu Mono derivative Powerline 14")
+>>>>>>> 177095bdff18c974b63d684a901db4db196e690c
 (provide 'init)
 ;; Local Variables:
 ;; coding: utf-8
 ;; no-byte-compile: t
 ;; End:
+mq
