@@ -1,0 +1,118 @@
+ls
+pwd
+ls
+ls
+cd ..
+ls
+ls
+pwd
+cd ..
+ls
+cd ..
+ls
+cd ~
+ls
+ls
+ls
+ls
+ls
+source bin/aclllls
+ls
+source env2.6/bin/activate.csh
+source env2.6/bin/activate
+make server
+ls
+rm -rf tmp
+cd ~/workspace/
+ls
+mkdir tmp
+cd tmp/
+touch Makefile
+touch a.py
+vim Makefile 
+ls
+make server
+make server
+"city_name": "\u5df4\u5f66\u6dd6\u5c14\u5e02", 
+make server
+make server
+Makefile:11: recipe for target 'server' failed
+make server
+ls
+cp elpa/yasnippet-20131031.628/snippets . -rf
+cp -rf elpa/yasnippet-20131031.628/snippets .
+ls
+cd ~/workspace/outland/
+ls
+git status
+rm TAGS a api/#hotel.py\# 
+git status
+git add .
+git pull
+git add .
+git commit -m "up"
+git push
+make server
+ls
+cd ~/workspace/
+ls
+cd lllls
+ls
+cd ~/workspace/tmp/
+ls
+sudo pip install requirements.txt 
+ls
+cd ~/.emacs.d/
+ls
+git clone https://github.com/dimitri/el-get.git
+ls
+cd el-get/
+ls
+ls
+rm -rf el-get/ 
+ls
+cd /tmp/
+wget https://raw.github.com/dimitri/el-get/master/el-get-install.el
+ls
+cd ~/workspace/
+ls
+cd rms-rest/
+ls
+python run.py 
+ls
+cd ~/workspace/Android-RMS/
+ls
+rm tags 
+ls
+ls
+ls
+cd ~/workspace/
+ls
+cd Android-RMS/
+ls
+ls
+ctags
+whereis ctags
+cd /usr/bin/
+ls
+sudo ln -sf /usr/local/Cellar/ctags/5.8/bin/ctags /usr/bin/ctags
+man l
+n
+man ln
+sudo ln -sf /usr/local/Cellar/ctags/5.8/bin/ctags /usr/bin/
+ls /usr/local/Cellar/ctags/5.8/bin/ctags
+ln -s /usr/local/Cellar/ctags/5.8/bin/ctags /usr/bin
+rm ctags
+sudo rm ctags
+Removing old name: permission denied, /usr/bin/ctags
+ln -s /usr/local/Cellar/ctags/5.8/bin/ctags /usr/bin
+sudo ln -s /usr/local/Cellar/ctags/5.8/bin/ctags /usr/bin
+sudo ln -s /usr/local/Cellar/ctags/5.8/bin/ctags /usr/bin
+ctags
+ctags
+ls
+cd ~
+ls
+cd ~/.emacs.d/
+ls
+vim .gitignore 

@@ -17,7 +17,6 @@ cookies
 /newsticker
 /ac-comphist.dat
 \#*
-/elpa
 site-lisp/package/
 /swank
 /.mc-lists.el
@@ -25,3 +24,4 @@ site-lisp/package/
 /.sqli_history
 /frame-restore-parameters
 /.achievements
+/eshell
