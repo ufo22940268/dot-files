@@ -1,71 +1,4 @@
 ls
-pwd
-ls
-ls
-cd ..
-ls
-ls
-pwd
-cd ..
-ls
-cd ..
-ls
-cd ~
-ls
-ls
-ls
-ls
-ls
-source bin/aclllls
-ls
-source env2.6/bin/activate.csh
-source env2.6/bin/activate
-make server
-ls
-rm -rf tmp
-cd ~/workspace/
-ls
-mkdir tmp
-cd tmp/
-touch Makefile
-touch a.py
-vim Makefile 
-ls
-make server
-make server
-"city_name": "\u5df4\u5f66\u6dd6\u5c14\u5e02", 
-make server
-make server
-Makefile:11: recipe for target 'server' failed
-make server
-ls
-cp elpa/yasnippet-20131031.628/snippets . -rf
-cp -rf elpa/yasnippet-20131031.628/snippets .
-ls
-cd ~/workspace/outland/
-ls
-git status
-rm TAGS a api/#hotel.py\# 
-git status
-git add .
-git pull
-git add .
-git commit -m "up"
-git push
-make server
-ls
-cd ~/workspace/
-ls
-cd lllls
-ls
-cd ~/workspace/tmp/
-ls
-sudo pip install requirements.txt 
-ls
-cd ~/.emacs.d/
-ls
-git clone https://github.com/dimitri/el-get.git
-ls
 cd el-get/
 ls
 ls
@@ -116,3 +49,80 @@ ls
 cd ~/.emacs.d/
 ls
 vim .gitignore 
+ls
+cd ..
+git status
+git add -A .
+git commit -m "up"
+git push
+scutil --help
+show VPN network configuration information. Use --nc help for full command list
+scutil --get hostname
+show VPN network configuration information. Use --nc help for full command list
+scutil --get HostName
+cat /etc/hosts.equiv
+cat /etc/hosts.equiv
+hostinfo
+whereis hostname
+cat /bin/hostname 
+hostname
+sudo scutil --set HostName cchengs-MacBook-Pro.local
+hostname
+ls
+cd ~
+ls
+q
+ls
+python run.py 
+source bin/activate_this.py
+ls
+ls bin/
+source bin/activate
+sudo brew install w3m
+Error: Download failed: http://www.hpl.hp.com/personal/Hans_Boehm/gc/gc_source/gc-7.2d.tar.gz
+sudo brew install w3m
+Error: Download failed: http://www.hpl.hp.com/personal/Hans_Boehm/gc/gc_source/gc-7.2d.tar.gz
+sudo pip install python-epc
+Storing complete log in /var/root/Library/Logs/pip.log
+sudo pip install epc
+cd ~
+ls
+mkdir .virtualenvs
+cd .virtualenvs/
+ls
+mkdir aaa
+cd aaa/
+virtualenv
+--distribute          Backward compatibility. Does nothing.
+--distribute          Backward compatibility. Does nothing.
+virtualenv .
+ls
+cd ..
+ls
+rm aaa -rf
+ls
+python run.py 
+python
+import
+python
+python
+python
+ls
+cd ~/.virtualenvs/
+ls
+mkdir aaa
+cd aaa/
+virtualenv .
+import 
+python
+cd ..
+ls
+ln -s ~/workspace/rms-rest/ .
+ls
+cd ~/workspace/
+ls
+cd rms-rest/
+python run.py 
+socket.error: [Errno 48] Address already in use
+socket.error: [Errno 48] Address already in use
+python run.py 

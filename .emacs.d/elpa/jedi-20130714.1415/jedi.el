@@ -285,7 +285,7 @@ avoid collision by something like this::
   "Keybind for command `jedi:complete'."
   :group 'jedi)
 
-(defcustom jedi:key-goto-definition (kbd "C-.")
+(defcustom jedi:key-goto-definition (kbd "C-%")
   "Keybind for command `jedi:goto-definition'."
   :group 'jedi)
 
