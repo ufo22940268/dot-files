@@ -1,6 +1,6 @@
 (projectile-global-mode)
 (add-hook 'java-mode-hook 'projectile-on)
-(set-default-font "Ubuntu Mono derivative Powerline 14")
+(set-default-font "Ubuntu Mono derivative Powerline 13")
 
 (setq split-height-threshold nil)
 (setq yas-snippet-dirs
@@ -64,20 +64,45 @@ The function is poorly named, didn't really want to 'load' it, just open it."
 ;;; Create a buffer to run python server and the output of the server
 ;;; goes into this buffer
 ;;; TODO change adb logcat to python server and involve virtualenv first.
-(defun launch-python-server ()
-  (let ((new-buffer "adb-logcat"))
-  (generate-new-buffer new-buffer)
-      (async-shell-command "adb logcat" new-buffer))
-)
 
-(global-set-key (kbd "C-x j s") 'jump-to-server)
+(global-set-key (kbd "C-c t") 'eshell)
+
+;;; Start a outland python server.
+(defun launch-python-server ()
+  (interactive)
+  (let ((new-buffer "python-server")
+        (new-wap-buffer "python-wap-server")
+        (virtualenv-dir "env2.6")
+        (project-path "/home/garlic/workspace/outland")
+        (wap-project-path "/home/garlic/workspace/outland/wap"))
+    (progn (if (get-buffer new-buffer)
+               (progn (message "buffer exists! do relaunch")
+                      (kill-buffer new-buffer)
+                      (kill-buffer new-wap-buffer)
+                      (venv-workon virtualenv-dir)))
+           (progn (do-launch-outland)
+                  (do-launch-outland-wap)))))
+
+(defun do-launch-outland ()
+  "DOCSTRING"
+  (progn (generate-new-buffer new-buffer)
+             (cd project-path)
+             (async-shell-command
+              "make server" new-buffer)))
+
+(defun do-launch-outland-wap ()
+  (progn (generate-new-buffer new-wap-buffer)
+             (cd wap-project-path)
+             (async-shell-command
+              "make" new-wap-buffer)))
+
+(global-set-key (kbd "C-x j o") 'jump-to-server)
+(global-set-key (kbd "C-x j w") 'jump-to-server)
 (defun jump-to-server ()
   "DOCSTRING"
   (interactive)
   (let (var1)
-    (switch-to-buffer "adb-logcat")
-    ))
-
+    (switch-to-buffer "python-server")))
 
 
 (provide 'init-my-config)
