@@ -1,1 +1,0 @@
-("~/program/emacs-dot-files/" "~/workspace/outland/" "~/.oh-my-zsh/" "~/.emacs.d/" "~/workspace/tmp/" "~/workspace/meishixing_admin/")

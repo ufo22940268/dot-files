@@ -104,5 +104,9 @@ The function is poorly named, didn't really want to 'load' it, just open it."
   (let (var1)
     (switch-to-buffer "python-server")))
 
+(global-set-key (kbd "C-M-i") 'imenu)
+(add-hook 'find-file-hook
+          (lambda ()
+            (setq default-directory command-line-default-directory)))
 
 (provide 'init-my-config)
