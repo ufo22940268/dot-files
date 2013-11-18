@@ -61,4 +61,23 @@ The function is poorly named, didn't really want to 'load' it, just open it."
   (message "Re-initialized!"))
 (global-set-key (kbd "C-x r e") 'reload-dot-emacs)
 
+;;; Create a buffer to run python server and the output of the server
+;;; goes into this buffer
+;;; TODO change adb logcat to python server and involve virtualenv first.
+(defun launch-python-server ()
+  (let ((new-buffer "adb-logcat"))
+  (generate-new-buffer new-buffer)
+      (async-shell-command "adb logcat" new-buffer))
+)
+
+(global-set-key (kbd "C-x j s") 'jump-to-server)
+(defun jump-to-server ()
+  "DOCSTRING"
+  (interactive)
+  (let (var1)
+    (switch-to-buffer "adb-logcat")
+    ))
+
+
+
 (provide 'init-my-config)
