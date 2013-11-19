@@ -205,17 +205,6 @@ set softtabstop=4
 set expandtab
 set smarttab
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""test
-let g:isListChars=0
-function! ToggleListChars() 
-    if g:isListChars == 0
-        set list listchars=tab:<+
-        let g:isListChars = 1
-    else
-        set nolist
-        let g:isListChars = 0
-    endif
-endf
-
 """"""""""""""""""""""""""""""
 " => Indent
 """"""""""""""""""""""""""""""
@@ -408,8 +397,6 @@ let g:netrw_list_hide='^\.#.*$'
 
 map <leader>vv :e ~/.vimrc<cr>
 map <leader>vs :so ~/.vimrc<cr>
-
-map <leader>ts :!target_sync && adb logcat -c<cr>
 
 "Used for framework module.
 if matchstr(getcwd(), $FRA) != ""
@@ -709,7 +696,6 @@ noremap <leader>cd :call CdToProjectRoot()<cr>
 noremap <leader>m :make<cr>
 "au BufAdd *.java call CdToProjectRoot()
 
-let g:SuperTabDefaultCompletionType = "<c-x><c-n>"
 set nocompatible               " be iMproved
 filetype off                   " required!
 set nocompatible               " be iMproved
@@ -970,10 +956,10 @@ let g:lightline = {
       \   'filetype': 'MyFiletype',
       \   'fileencoding': 'MyFileencoding',
       \   'mode': 'MyMode',
+      \ 'separator': { 'left': '<', 'right': '>' },
+      \ 'subseparator': { 'left': '<', 'right': '>' }
       \ }
       \ }
-      "\ 'separator': { 'left': '⮀', 'right': '⮂' },
-      "\ 'subseparator': { 'left': '⮁', 'right': '⮃' }
 
 function! MyModified()
   return &ft =~ 'help\|vimfiler\|gundo' ? '' : &modified ? '+' : &modifiable ? '' : '-'
@@ -1074,6 +1060,3 @@ let g:pymode_folding = 0
 "
 "Easy motion
 Bundle 'https://github.com/Lokaltog/vim-easymotion.git'
-
-Bundle 'https://github.com/davidoc/taskpaper.vim.git'
-
