@@ -879,27 +879,12 @@ noremap <leader>vp :let @p=expand("%:p")<cr>
 nnoremap <leader>vf :let @f=expand("%:t:r")<cr>
 nnoremap <leader>vr :let @r=expand("%:h")<cr>
 
-nnoremap ,vac :!make clean<cr>
-"nnoremap ,vd :!ant installd<cr>
-nnoremap ,vd :!mvn android:deploy<cr>
-nnoremap ,vu :!ant uninstall<cr>
-nnoremap ,vr :make runa<cr>
 nnoremap <leader>vh gg/class<cr>
 nnoremap <leader>vi ?^import<cr>
 nnoremap ,vn :call EditSnippet()<cr>
 nnoremap ,vt :exec "e ~/.vim/bundle/vim-template/templates/template.".&filetype<cr>
 nnoremap ,va :e ~/.config/awesome/rc.lua<cr>
 
-function! MakeTest()
-    set makeprg=make\ test
-    call SetInstrumentClass()
-endf
-
-"call SetAnt()
-
-function! Make()
-    set makeprg=make
-endf
 "noremap <c-l> :JavaBrowser<cr>
 noremap <c-l> :TagbarToggle<cr>
 syntax on
@@ -1060,3 +1045,6 @@ let g:pymode_folding = 0
 "
 "Easy motion
 Bundle 'https://github.com/Lokaltog/vim-easymotion.git'
+
+"Bundle 'https://github.com/davidhalter/jedi-vim.git'
+Bundle 'https://github.com/ervandew/supertab.git'
