@@ -157,10 +157,10 @@ func! Cwd()
 endfunc
 
 "Bash like
-cno <C-A> <Home>
-cno <C-E> <End>
-"cno <C-K> <C-K>
-cno <C-F> <Right>
+nnoremap <C-A> <Home>
+cnoremap <C-E> <End>
+nnoremap <C-K> <C-K>
+nnoremap <C-F> <Right>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -328,6 +328,7 @@ map <leader>t :Tabularize /=<cr>
 map <leader>vz :e ~/.oh-my-zsh/profile.sh<cr>
 map <leader>sz :!source ~/.zshrc<cr>
 noremap <leader>m :make<cr>
+noremap <leader>cm :%g/    @pytest.mark.current/d<cr>
 
 function! GetAppPackage()
     pyfile ~/.vim/python/PackageExtractor.py
@@ -993,6 +994,7 @@ nnoremap <Leader>fU :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
 
 "Multible cursors
 Bundle 'https://github.com/terryma/vim-multiple-cursors.git'
+let g:multi_cursor_exit_from_insert_mode=0
 
 "vim-expand-region
 "Bundle 'https://github.com/terryma/vim-expand-region.git'
@@ -1039,7 +1041,6 @@ Bundle 'git@github.com:klen/python-mode.git'
 let g:pymode_lint_ignore='W0401,W0611,W0612'
 let g:pymode_lint_checker='pyflakes'
 let g:pymode_folding = 0
-
 "Syntax checker
 "Bundle 'https://github.com/scrooloose/syntastic'
 "
@@ -1048,3 +1049,10 @@ Bundle 'https://github.com/Lokaltog/vim-easymotion.git'
 
 "Bundle 'https://github.com/davidhalter/jedi-vim.git'
 Bundle 'https://github.com/ervandew/supertab.git'
+
+Bundle "MarcWeber/vim-addon-mw-utils"
+Bundle "tomtom/tlib_vim"
+Bundle "garbas/vim-snipmate"
+
+" Optional:
+Bundle "honza/vim-snippets"
