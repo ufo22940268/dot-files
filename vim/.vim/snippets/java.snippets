@@ -220,9 +220,9 @@ snippet monitemclick
 snippet monclick
 	@Override
 	public void onClick(View view) {
-       switch (view.getId()) {
+		switch (view.getId()) {
 			${1}
-       }
+		}
 	}
 snippet moncreate
 	@Override
@@ -327,6 +327,8 @@ snippet monscroll
 	public void onScrollStateChanged(AbsListView view, int scrollState) {
 	}
 snippet mactivity
+	package me.biubiubiu.rms;
+
 	import android.util.*;
 	import android.widget.*;
 	import android.view.*;
@@ -343,11 +345,15 @@ snippet mactivity
 	import java.util.*;
 	import org.json.*;
 
-	public class ${1:`Filename("", "untitled")`} extends Activity  {
+	import me.biubiubiu.rms.util.HttpHandler.ResponseHandler;
+	import me.biubiubiu.rms.util.*;
+	import me.biubiubiu.rms.ui.*;
+
+	public class ${1:`Filename("", "untitled")`} extends BaseActivity  {
 
 	    @Override
 	    protected void onCreate(Bundle savedBundleInstance) {
-		super.onCreate(savedBundleInstance);
+			super.onCreate(savedBundleInstance);
 	    }
 	}
 snippet monactivitycreated
@@ -412,3 +418,9 @@ snippet mly
 	LayoutInflater.from(${1:context}).inflate(R.layout.${2}, ${3:parent}, false);
 snippet mass
 	assertThat(${1}).isEqualTo(${2});
+snippet mresp
+	new ResponseHandler() {
+		@Override
+		public void onSuccess(String result) {
+		}
+	}

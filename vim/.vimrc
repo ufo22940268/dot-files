@@ -7,7 +7,7 @@
 
 
 function! MySys()
-    return "unix"
+    return "mac"
 endfunction
 
 "Enable filetype plugin
@@ -34,43 +34,6 @@ let g:mapleader = ","
 "Fast saving
 nmap <leader>x :xa!<cr>
 nmap <leader>w :w!<cr>
-
-
-"internationalization
-"I only work in Win2k Chinese version
-if has("multi_byte")
-    "set bomb 
-    set fileencodings=ucs-bom,utf-8,cp936,big5,euc-jp,euc-kr,latin1 
-    " CJK environment detection and corresponding setting 
-    if v:lang =~ "^zh_CN" 
-        " Use cp936 to support GBK, euc-cn == gb2312 
-        set encoding=cp936 
-        set termencoding=cp936 
-        set fileencoding=cp936 
-    elseif v:lang =~ "^zh_TW" 
-        " cp950, big5 or euc-tw 
-        " Are they equal to each other? 
-        set encoding=big5 
-        set termencoding=big5 
-        set fileencoding=big5 
-    elseif v:lang =~ "^ko" 
-        " Copied from someone's dotfile, untested 
-        set encoding=euc-kr 
-        set termencoding=euc-kr 
-        set fileencoding=euc-kr 
-    elseif v:lang =~ "^ja_JP" 
-        " Copied from someone's dotfile, untested 
-        set encoding=euc-jp 
-        set termencoding=euc-jp 
-        set fileencoding=euc-jp 
-    endif 
-    " Detect UTF-8 locale, and replace CJK setting if needed 
-    if v:lang =~ "utf8$" || v:lang =~ "UTF-8$" 
-        set encoding=utf-8 
-        set termencoding=utf-8 
-        set fileencoding=utf-8 
-    endif
-endif
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -194,10 +157,10 @@ func! Cwd()
 endfunc
 
 "Bash like
-cno <C-A> <Home>
-cno <C-E> <End>
-"cno <C-K> <C-K>
-cno <C-F> <Right>
+nnoremap <C-A> <Home>
+cnoremap <C-E> <End>
+nnoremap <C-K> <C-K>
+nnoremap <C-F> <Right>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -242,17 +205,6 @@ set softtabstop=4
 set expandtab
 set smarttab
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""test
-let g:isListChars=0
-function! ToggleListChars() 
-    if g:isListChars == 0
-        set list listchars=tab:<+
-        let g:isListChars = 1
-    else
-        set nolist
-        let g:isListChars = 0
-    endif
-endf
-
 """"""""""""""""""""""""""""""
 " => Indent
 """"""""""""""""""""""""""""""
@@ -269,15 +221,6 @@ endif
 
 "Wrap line
 set wrap
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Spell checking
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-map <leader>sn ]
-map <leader>sp [
-map <leader>sa zg
-map <leader>s? z=
 
 
 
@@ -372,17 +315,20 @@ function! EditFileType()
     exec "e ~/.vim/ftplugin/".&filetype.".vim"
 endfunction
 
+"My mapping
 nmap <leader>es :call EditSnippet()<CR>
 nmap <leader>et :exec "e ~/.vim/ftplugin/".&filetype.".vim"<CR>
-
 nmap <leader>rr :call ReloadSnippets(snippets_dir, &filetype)<CR>
-map <leader>vjs :sp ~/.vim/snippets/java.snippets<cr>
-map <leader>vxs :sp ~/.vim/snippets/xml.snippets<cr>
-
 map <leader>al :!adb_connect&&adb logcat<cr>
 map <leader>ac :!adb_connect && pactive $TARGET<cr>
 map <silent><leader>vp :!xdg-open %<cr>
 noremap <leader>cl :ccl<cr>
+map <leader>t :Tabularize /=<cr>
+
+map <leader>vz :e ~/.oh-my-zsh/profile.sh<cr>
+map <leader>sz :!source ~/.zshrc<cr>
+noremap <leader>m :make<cr>
+noremap <leader>cm :%g/    @pytest.mark.current/d<cr>
 
 function! GetAppPackage()
     pyfile ~/.vim/python/PackageExtractor.py
@@ -453,8 +399,6 @@ let g:netrw_list_hide='^\.#.*$'
 map <leader>vv :e ~/.vimrc<cr>
 map <leader>vs :so ~/.vimrc<cr>
 
-map <leader>ts :!target_sync && adb logcat -c<cr>
-
 "Used for framework module.
 if matchstr(getcwd(), $FRA) != ""
     set path+=$RES/drawable
@@ -500,6 +444,10 @@ function! SetAnt()
     execute 'set errorformat=' . mac_ant_fmt
 endfunction
 
+function! SetMaven()
+    set errorformat=[ERROR]\ %f:[%l\\,%v]\ %m
+endf
+
 function! SetPython()
     set errorformat=
                 \%A\ \ File\ \"%f\"\\\,\ line\ %l\\\,%m,
@@ -522,10 +470,7 @@ map <leader>z <Plug>ZoomWin
 cabbr <expr> %% expand('%:h')
 cabbr <expr> %$ expand('%:t:r')
 
-" It's useful to show the buffer number in the status line.
-set laststatus=2 statusline=%02n:%<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P
-
-" It's useful to show the buffer number in the status line.
+"" It's useful to show the buffer number in the status line.
 set laststatus=2 statusline=%02n:%<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P
 
 function! FormatXml() 
@@ -642,7 +587,7 @@ endf
 
 function! ExecuteInConqueTerm(cmd)
     split
-    let my_terminal = conque_term#open('/bin/bash -l')
+    let my_terminal = conque_term#open('zsh')
     call my_terminal.write(a:cmd . "\n")
 endf
 
@@ -914,8 +859,6 @@ Bundle 'https://github.com/mattn/emmet-vim.git'
 
 Bundle 'http://github.com/coderifous/textobj-word-column.vim.git'
 Bundle 'http://github.com/vim-scripts/renamer.vim.git'
-"Bundle 'http://github.com/danro/rename.vim.git'
-Bundle 'https://github.com/vim-scripts/Rename.git'
 
 Bundle 'https://github.com/majutsushi/tagbar.git'
 Bundle 'https://github.com/nathanaelkane/vim-indent-guides.git'
@@ -936,27 +879,12 @@ noremap <leader>vp :let @p=expand("%:p")<cr>
 nnoremap <leader>vf :let @f=expand("%:t:r")<cr>
 nnoremap <leader>vr :let @r=expand("%:h")<cr>
 
-nnoremap ,vac :!make clean<cr>
-"nnoremap ,vd :!ant installd<cr>
-nnoremap ,vd :!mvn android:deploy<cr>
-nnoremap ,vu :!ant uninstall<cr>
-nnoremap ,vr :make runa<cr>
 nnoremap <leader>vh gg/class<cr>
 nnoremap <leader>vi ?^import<cr>
 nnoremap ,vn :call EditSnippet()<cr>
 nnoremap ,vt :exec "e ~/.vim/bundle/vim-template/templates/template.".&filetype<cr>
 nnoremap ,va :e ~/.config/awesome/rc.lua<cr>
 
-function! MakeTest()
-    set makeprg=make\ test
-    call SetInstrumentClass()
-endf
-
-"call SetAnt()
-
-function! Make()
-    set makeprg=make
-endf
 "noremap <c-l> :JavaBrowser<cr>
 noremap <c-l> :TagbarToggle<cr>
 syntax on
@@ -986,7 +914,6 @@ Bundle 'http://github.com/altercation/vim-colors-solarized.git'
 if MySys() == "mac"
     let g:solarized_termcolors=256
 endif
-let g:solarized_termcolors=256
 set background=dark
 set t_Co=16
 colorscheme solarized
@@ -1014,9 +941,9 @@ let g:lightline = {
       \   'filetype': 'MyFiletype',
       \   'fileencoding': 'MyFileencoding',
       \   'mode': 'MyMode',
-      \ },
-      \ 'separator': { 'left': '⮀', 'right': '⮂' },
-      \ 'subseparator': { 'left': '⮁', 'right': '⮃' }
+      \ 'separator': { 'left': '<', 'right': '>' },
+      \ 'subseparator': { 'left': '<', 'right': '>' }
+      \ }
       \ }
 
 function! MyModified()
@@ -1066,6 +993,7 @@ nnoremap <Leader>fU :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
 
 "Multible cursors
 Bundle 'https://github.com/terryma/vim-multiple-cursors.git'
+let g:multi_cursor_exit_from_insert_mode=0
 
 "vim-expand-region
 "Bundle 'https://github.com/terryma/vim-expand-region.git'
@@ -1079,7 +1007,7 @@ endf
 
 "Dispatch, Asynchronize vim maker.
 "Bundle 'https://github.com/tpope/vim-dispatch.git'
-Bundle 'https://github.com/ufo22940268/vim-dispatch'
+"Bundle 'https://github.com/ufo22940268/vim-dispatch'
 
 "Template
 Bundle 'https://github.com/aperezdc/vim-template.git'
@@ -1112,11 +1040,27 @@ Bundle 'https://github.com/Lokaltog/vim-easymotion.git'
 
 Bundle 'https://github.com/davidhalter/jedi-vim.git'
 
-"Python mode
-"Bundle 'https://github.com/klen/python-mode.git'
-
 noremap <leader>b koimport pdb; pdb.set_trace()
 
 noremap <leader>cl :ccl<cr>
 
-set shell=/bin/bash
+"Python mode
+Bundle 'git@github.com:klen/python-mode.git'
+let g:pymode_lint_ignore='W0401,W0611,W0612'
+let g:pymode_lint_checker='pyflakes'
+let g:pymode_folding = 0
+"Syntax checker
+"Bundle 'https://github.com/scrooloose/syntastic'
+"
+"Easy motion
+Bundle 'https://github.com/Lokaltog/vim-easymotion.git'
+
+"Bundle 'https://github.com/davidhalter/jedi-vim.git'
+Bundle 'https://github.com/ervandew/supertab.git'
+
+Bundle "MarcWeber/vim-addon-mw-utils"
+Bundle "tomtom/tlib_vim"
+Bundle "garbas/vim-snipmate"
+
+" Optional:
+Bundle "honza/vim-snippets"
