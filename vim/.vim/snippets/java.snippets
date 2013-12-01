@@ -336,6 +336,7 @@ snippet mactivity
 	import android.database.*;
 	import android.net.*;
 	import android.opengl.*;
+	import android.text.*;
 	import android.graphics.*;
 	import android.view.animation.*;
 
@@ -407,3 +408,7 @@ snippet mgetresult
 	});
 snippet mfid
 	findViewById(${1});
+snippet mly
+	LayoutInflater.from(${1:context}).inflate(R.layout.${2}, ${3:parent}, false);
+snippet mass
+	assertThat(${1}).isEqualTo(${2});

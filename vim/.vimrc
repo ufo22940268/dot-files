@@ -719,7 +719,7 @@ set noswapfile
 set nocst
 
 
-map <silent> <leader>bt :!ctags -R<CR>
+map <silent> <leader>bt :!/usr/local/Cellar/ctags/5.8/bin/ctags -R<CR>
 
 fun! SwitchToProject(path)
     exec ":lcd $".a:path
@@ -752,7 +752,6 @@ noremap <leader>cd :call CdToProjectRoot()<cr>
 noremap <leader>m :make<cr>
 "au BufAdd *.java call CdToProjectRoot()
 
-let g:SuperTabDefaultCompletionType = "<c-x><c-n>"
 set nocompatible               " be iMproved
 filetype off                   " required!
 set nocompatible               " be iMproved
@@ -915,7 +914,8 @@ Bundle 'https://github.com/mattn/emmet-vim.git'
 
 Bundle 'http://github.com/coderifous/textobj-word-column.vim.git'
 Bundle 'http://github.com/vim-scripts/renamer.vim.git'
-Bundle 'http://github.com/danro/rename.vim.git'
+"Bundle 'http://github.com/danro/rename.vim.git'
+Bundle 'https://github.com/vim-scripts/Rename.git'
 
 Bundle 'https://github.com/majutsushi/tagbar.git'
 Bundle 'https://github.com/nathanaelkane/vim-indent-guides.git'
@@ -1106,3 +1106,17 @@ Bundle 'git@github.com:mileszs/ack.vim.git'
 
 "Python doc
 Bundle 'git@github.com:fs111/pydoc.vim.git'
+
+"Easy motion.
+Bundle 'https://github.com/Lokaltog/vim-easymotion.git'
+
+Bundle 'https://github.com/davidhalter/jedi-vim.git'
+
+"Python mode
+"Bundle 'https://github.com/klen/python-mode.git'
+
+noremap <leader>b koimport pdb; pdb.set_trace()
+
+noremap <leader>cl :ccl<cr>
+
+set shell=/bin/bash
